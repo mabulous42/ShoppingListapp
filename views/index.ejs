@@ -21,6 +21,22 @@
                 </div>
             </form>
         </div>
+        <% for( let i = 0; i < shopList.length; i++ ) { %>
+            <div class="mx-auto d-flex col-sm-8 shadow-sm justify-content-evenly py-3 my-2">
+                <p>Item: <%= shopList[i].item %></p>
+                <p>Amount: <%= shopList[i].amount %></p>
+                <p>Quantity: <%= shopList[i].quantity %></p>
+                <p>SubTotal: <%= shopList[i].subtotal %></p>
+                <form action="">
+                    <input type="hidden" name="<%= i %>">
+                    <button class="btn btn-primary">Edit</button>
+                </form>
+                <form action="/deleteItem", method="post">
+                    <input type="hidden" name="index" value="<%= i %>">
+                    <button class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        <% } %>
     </div>
 </body>
 </html>

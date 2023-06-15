@@ -9,6 +9,9 @@ app.use(express.urlencoded({extended: true}));
 const myname = "Abbas Mustapha";
 console.log(myname);
 
+app.get("/", (req,res)=>{
+    res.send(myname)
+})
 const arr = [20, 50, 35, 80, 130];
 const sum = arr.reduce((total, index)=>{
     return (index + total)
@@ -22,19 +25,23 @@ app.get("/shopList", (req,res)=>{
 })
 
 let shopList = []
+let total;
 app.post("/shopList", (req,res)=>{
     let data = req.body;
     let subtotal = req.body.amount * req.body.quantity;
     data.subtotal = subtotal;
     shopList.push(data)
-    let total = shopList.reduce((total, index)=>{return index.subtotal + total}, 0);
+    total = shopList.reduce((total, index)=>{return index.subtotal + total}, 0);
     console.log(total);
     console.log(shopList);
     res.render("index", {shopList, total})
 })
 
-app.get("/", (req,res)=>{
-    res.send(myname)
+app.post("/deleteItem", (req,res)=>{
+    let index = req.body.index;
+    shopList.splice(index,1);
+    total = shopList.reduce((total, index)=>{return index.subtotal + total}, 0);
+    res.render("index", {shopList, total})
 })
 
 
