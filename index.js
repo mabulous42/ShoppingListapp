@@ -25,8 +25,8 @@ app.get("/shopList", (req,res)=>{
 })
 
 let shopList = []
-let total;
 app.post("/shopList", (req,res)=>{
+    let total = 0;
     let data = req.body;
     let subtotal = req.body.amount * req.body.quantity;
     data.subtotal = subtotal;
@@ -44,7 +44,36 @@ app.post("/deleteItem", (req,res)=>{
     res.render("index", {shopList, total})
 })
 
+app.get("/editItem/:id", (req,res)=>{
+    let index = req.params.id;
+    let item = shopList[index].item;
+    let amount = shopList[index].amount;
+    let quantity = shopList[index].quantity;
+    res.render("editItem", {item, amount, quantity, index})
+})
 
+app.post("/editItem", (req,res)=>{
+    let id = req.body.index;
+    console.log(id);
+    let item = req.body.item;
+    let amount = req.body.amount;
+    let quantity = req.body.quantity;
+    let subtotal = amount * quantity;
+    let newData = {
+        item,
+        amount,
+        subtotal,
+        quantity
+    }
+    console.log(newData);
+    shopList.splice(id, 1, newData);
+    total = shopList.reduce((total, index)=>{return index.subtotal + total}, 0);
+
+
+    console.log("edited list: " +shopList);
+    console.log("Newtotal: " +total);
+    res.render("index", {shopList,total});
+})
 
 
 

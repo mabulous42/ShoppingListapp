@@ -27,7 +27,7 @@
                 <p>Amount: <%= shopList[i].amount %></p>
                 <p>Quantity: <%= shopList[i].quantity %></p>
                 <p>SubTotal: <%= shopList[i].subtotal %></p>
-                <form action="">
+                <form action="/editItem/<%= i %>", method="get">
                     <input type="hidden" name="<%= i %>">
                     <button class="btn btn-primary">Edit</button>
                 </form>
