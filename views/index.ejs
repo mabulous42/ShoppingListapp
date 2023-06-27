@@ -9,7 +9,7 @@
 <body>
     <div class="mx-auto container row">
         <div class="mx-auto col-sm-8 shadow p-4">
-            <form action="/shopList", method="post">
+            <form action="/shopList" method="post">
                 <h1 class="text-center text-muted display-6">Shopping List</h1>
                 <input type="text" placeholder="item"  name="item" id="" class="form-control my-3">
                 <input type="number" placeholder="amount" name="amount" id="" class="form-control my-3">
@@ -27,12 +27,11 @@
                 <p>Amount: <%= shopList[i].amount %></p>
                 <p>Quantity: <%= shopList[i].quantity %></p>
                 <p>SubTotal: <%= shopList[i].subtotal %></p>
-                <form action="/editItem/<%= i %>", method="get">
-                    <input type="hidden" name="<%= i %>">
+                <form action="/editItem/<%= shopList[i]._id %>", method="get">
                     <button class="btn btn-primary">Edit</button>
                 </form>
-                <form action="/deleteItem", method="post">
-                    <input type="hidden" name="index" value="<%= i %>">
+                <form action="/deleteItem" method="post">
+                    <input type="hidden" name="index" value="<%= shopList[i]._id %>">
                     <button class="btn btn-danger">Delete</button>
                 </form>
             </div>
